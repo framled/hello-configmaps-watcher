@@ -20,13 +20,20 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class,
-    UserDetailsServiceAutoConfiguration.class, WebMvcAutoConfiguration.class})
+@SpringBootApplication(exclude = {
+    SecurityAutoConfiguration.class,
+    UserDetailsServiceAutoConfiguration.class,
+    WebMvcAutoConfiguration.class
+})
 @EnableConfigurationProperties
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.hello.helloworldservice.invoker",
-    "com.hello.helloworldservice.api", "com.hello.helloworldservice.config",
-    "com.hello.helloworldservice.delegate", "com.hello.helloworldservice.monitoring"})
+@ComponentScan(basePackages = {
+    "com.hello.helloworldservice.invoker",
+    "com.hello.helloworldservice.api",
+    "com.hello.helloworldservice.config",
+    "com.hello.helloworldservice.delegate",
+    "com.hello.helloworldservice.monitoring"
+})
 public class HolamundoServiceSpringBootApp implements CommandLineRunner {
 
   @Override

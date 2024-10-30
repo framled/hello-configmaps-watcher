@@ -1,1 +1,0 @@
-This directory is for putting your delegates in.

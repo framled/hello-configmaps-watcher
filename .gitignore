@@ -1,5 +1,3 @@
-# git ignore for KATA
-
 HELP.md
 .gradle
 /build/
@@ -34,8 +32,6 @@ HELP.md
 
 # configuration
 application-dev.properties
-/helm/**/environment/local/
-/helm/**/secrets.yaml
 
 # mac os files
 .DS_Store

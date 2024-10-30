@@ -6,6 +6,6 @@ metadata:
   labels:
     spring.cloud.kubernetes.config: "true"
   annotations:
-    spring.cloud.kubernetes.configmap.apps: "foo-service"
+    spring.cloud.kubernetes.configmap.apps: "helloworld-service"
 data:
-  features.newFeatureEnabled: "false"
+  features.newFeatureEnabled: "true"

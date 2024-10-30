@@ -13,11 +13,9 @@ public class SpringDocConfiguration {
   @Bean
   OpenAPI apiInfo() {
     return new OpenAPI().info(new Info().title("HolaMundo")
-        .description("Hello World example service for Liverpoool kata bootstrap.")
-        .termsOfService("https://kata.e2x.com/terms/")
-        .contact(new Contact().email("liam.dooley@applydigital.com"))
-        .license(
-            new License().name("Apache 2.0").url("http://www.apache.org/licenses/LICENSE-2.0.html"))
-        .version("1.0.0"));
+      .description("Hello World example service.")
+      .termsOfService("https://example.com/terms/")
+      .contact(new Contact().email("example@example.com"))
+      .license(new License().name("Apache 2.0").url("http://www.apache.org/licenses/LICENSE-2.0.html")).version("1.0.0"));
   }
 }

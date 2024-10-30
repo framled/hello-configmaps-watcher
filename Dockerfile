@@ -29,4 +29,4 @@ USER ${APP_USER}
 
 EXPOSE 8099
 
-CMD java -jar kata-hola-mundoservice.jar --server.servlet.context-path=/
+CMD java -jar hola-mundoservice.jar --server.servlet.context-path=/

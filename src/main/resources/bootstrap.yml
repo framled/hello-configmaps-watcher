@@ -8,8 +8,3 @@ spring:
         namespace: spring-cloud-system
         sources:
         - name: example-configmap
-      reload:
-        enabled: true
-        monitoring-config-maps: true
-        strategy: refresh
-        mode: event

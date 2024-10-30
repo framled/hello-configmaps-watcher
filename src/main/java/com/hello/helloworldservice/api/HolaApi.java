@@ -29,10 +29,21 @@ public interface HolaApi {
    *
    * @return Success (status code 200)
    */
-  @Operation(operationId = "holaMundo", summary = "Hello World example", tags = {"hola"},
-      responses = {@ApiResponse(responseCode = "200", description = "Success",
-          content = {@Content(mediaType = "application/json",
-              schema = @Schema(implementation = HelloWorldMessage.class))})})
+  @Operation(
+    operationId = "holaMundo",
+    summary = "Hello World example",
+    tags = {"hola"},
+    responses = {
+      @ApiResponse(responseCode = "200", description = "Success",
+        content = {
+          @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = HelloWorldMessage.class)
+          )
+        }
+      )
+    }
+  )
   @RequestMapping(method = RequestMethod.GET, value = "/hola", produces = {"application/json"})
   default ResponseEntity<HelloWorldMessage> holaMundo() {
 
