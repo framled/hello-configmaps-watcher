@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: HolamundoService
+  cloud:
+    kubernetes:
+      config:
+        enabled: true
+        namespace: spring-cloud-system
+        sources:
+        - name: example-configmap
+      reload:
+        enabled: true
+        monitoring-config-maps: true
+        strategy: refresh
+        mode: event

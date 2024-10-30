@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: example-configmap
+  namespace: spring-cloud-system
+  labels:
+    spring.cloud.kubernetes.config: "true"
+  annotations:
+    spring.cloud.kubernetes.configmap.apps: "foo-service"
+data:
+  features.newFeatureEnabled: "false"

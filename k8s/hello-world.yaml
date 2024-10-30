@@ -1,0 +1,103 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "config-watcher"
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "pods", "services", "endpoints", "secrets"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: config-watcher-binding
+roleRef:
+  apiGroup: "rbac.authorization.k8s.io"
+  kind: "ClusterRole"
+  name: config-watcher
+subjects:
+- kind: "ServiceAccount"
+  name: deployer
+  namespace: "hello-world"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld-service
+  labels:
+    app.kubernetes.io/name: helloworld-service
+    app.kubernetes.io/instance: helloworld-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8099
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: helloworld-service
+    app.kubernetes.io/instance: helloworld-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-service
+  labels:
+    app.kubernetes.io/name: helloworld-service
+    app.kubernetes.io/instance: helloworld-service
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: helloworld-service
+      app.kubernetes.io/instance: helloworld-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: helloworld-service
+        app.kubernetes.io/instance: helloworld-service
+    spec:
+      serviceAccountName: deployer
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
+      containers:
+        - name: helloworld-service
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            runAsUser: 1000
+          image: "hello-world:1.0.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8099
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 120
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          readinessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+---
+---
